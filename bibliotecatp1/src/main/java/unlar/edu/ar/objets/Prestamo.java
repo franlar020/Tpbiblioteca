@@ -1,6 +1,10 @@
 package unlar.edu.ar.objets;
 
+
+import java.time.LocalDate;
+
 import java.time.LocalDate; // Corregida la mayúscula
+
 
 public class Prestamo {
     private Libro libro;
@@ -22,10 +26,25 @@ public class Prestamo {
 
     public void setFechaDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Prestamo prestamo = (Prestamo) obj;
+        return libro.equals(prestamo.libro) && estudiante.equals(prestamo.estudiante);
+    }
+
+    @Override
+    public String toString() {
+
     }
 
     @Override
     public String toString() { // String con S mayúscula
+
         return "Prestamo: " + libro.getTitulo() + " a " + estudiante.getNombre();
     }
 }
