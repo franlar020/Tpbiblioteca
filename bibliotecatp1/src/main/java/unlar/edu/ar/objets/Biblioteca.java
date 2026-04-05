@@ -120,4 +120,15 @@ public class Biblioteca {
     if (!tienePrestamos) {
         System.out.println("El estudiante no tiene préstamos activos actualmente.");
     }
+
+    public static double calcularMulta(int diasRetraso, double valorLibro){
+        double multa = 0.0;
+        if (diasRetraso <= 0) {
+            return multa; // No hay multa si no hay retraso
+        } else if(diasRetraso <= 30){
+            double totalInteres = diasRetraso * 0.01;
+            multa = valorLibro * totalInteres;
+            return multa; // Multa de 1% por día de retraso
+        }
+    }
 }
