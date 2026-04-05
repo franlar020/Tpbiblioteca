@@ -15,6 +15,7 @@ public class Biblioteca {
     private ArrayList<Libro> catologLibros;
     private HashMap<String, Estudiante> registroEstudiates; // clave: legajo
     private HashSet<Prestamo> prestamosActivos; // legajo de estudiantes con prestamos activos
+    private Object isbn;
 
     public Biblioteca() {
         this.catologLibros = new ArrayList<>();
@@ -50,7 +51,7 @@ public class Biblioteca {
 
         Libro libEncontrado = null;
         for (Libro libro: catologLibros) {
-            if (l.getIsbn().equals(isbn)) {
+            if (libro.getIsbn().equals(isbn)) {
                 libEncontrado = libro;
                 break;
             }       
@@ -86,7 +87,7 @@ public class Biblioteca {
             }
         }
 
-        if (aEliminar != null) {
+        if (prestamoEncontrado != null) {
             prestamosActivos.remove(prestamoEncontrado);
             prestamoEncontrado.getLibro().setDisponible(true); // Marcar el libro como disponible
             System.out.println("Devolución registrada: " + prestamoEncontrado);

@@ -16,4 +16,9 @@ public class Libro {
         this.anio = anio;
         this.disponible = true;
     }
+
+    public void setDisponible(boolean b) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setDisponible'");
+    }
 }
