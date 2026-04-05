@@ -1,26 +1,21 @@
 package unlar.edu.ar;
-import unlar.edu.ar.objects.Biblioteca;
-import unlar.edu.ar.objects.Estudiante;
-import unlar.edu.ar.objects.Libro;
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-    
-        System.out.println("Prueba de multa");
-        double valorLibro = 100.0;
-        int diasRetraso1 = 0;
-        int diasRetraso2 = 15;
+
+import unlar.edu.ar.objets.Biblioteca;
+import unlar.edu.ar.objets.Estudiante;
+import unlar.edu.ar.objets.Libro;
+
+public class App {
+    public static void main(String[] args) {
+        Biblioteca biblioteca = new Biblioteca();
+
+        System.out.println("\n--- Probando Calculo de Multa (Recursividad) ---");
         
-        double multa1 = Biblioteca.calcularMulta( diasRetraso1, valorLibro);
-        double multa2 = Biblioteca.calcularMulta(diasRetraso2, valorLibro);
-        
-        System.out.println("Multa 1: " + multa1);
-        System.out.println("------------------------------ ");
-        System.out.println("Multa 2: " + multa2);
+        double valorLibro = 1000.0;
+        int diasRetraso = 15;
+        double multa = biblioteca.calcularMulta(diasRetraso, valorLibro);
+
+        System.out.println("Valor del libro: $" + valorLibro);
+        System.out.println("Dias de retraso: " + diasRetraso);
+        System.out.println("Multa calculada (1% por dia): $" + multa);
     }
 }

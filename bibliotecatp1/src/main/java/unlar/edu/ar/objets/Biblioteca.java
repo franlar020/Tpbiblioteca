@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import unlar.edu.ar.exception.*¨;
+import unlar.edu.ar.exception.*;
 
 public class Biblioteca {
 
@@ -14,7 +14,7 @@ public class Biblioteca {
 
     private ArrayList<Libro> catologLibros;
     private HashMap<String, Estudiante> registroEstudiates; // clave: legajo
-    private HashSet<String> prestamosActivos; // legajo de estudiantes con prestamos activos
+    private HashSet<Prestamo> prestamosActivos; // legajo de estudiantes con prestamos activos
 
     public Biblioteca() {
         this.catologLibros = new ArrayList<>();
@@ -107,28 +107,28 @@ public class Biblioteca {
     //Listar prestamos de un estudiante especifico
     public void listarPrestamosEstudiante(String legajo) {
         System.out.println("Buscando préstamos activos para el legajo: " + legajo);
-    boolean tienePrestamos = false;
-    
-    for (Prestamo p : prestamosActivos) {
-        // Usamos el getter para comparar el legajo
-        if (p.getEstudiante().getLegajo().equals(legajo)) {
-            System.out.println(p);
-            tienePrestamos = true;
+        boolean tienePrestamos = false;
+        
+        for (Prestamo p : prestamosActivos) {
+            // Usamos el getter para comparar el legajo
+            if (p.getEstudiante().getLegajo().equals(legajo)) {
+                System.out.println(p);
+                tienePrestamos = true;
+            }
         }
-    }
-    
-    if (!tienePrestamos) {
-        System.out.println("El estudiante no tiene préstamos activos actualmente.");
+        
+        if (!tienePrestamos) {
+            System.out.println("El estudiante no tiene préstamos activos actualmente.");
+        }
     }
 
-    public static double calcularMulta(int diasRetraso, double valorLibro){
-        double multa = 0.0;
-        if (diasRetraso <= 0) {
-            return multa; // No hay multa si no hay retraso
-        } else if(diasRetraso <= 30){
-            double totalInteres = diasRetraso * 0.01;
-            multa = valorLibro * totalInteres;
-            return multa; // Multa de 1% por día de retraso
+    // 2.5 Método recursivo para calcular multa 
+    public double calcularMulta(int diasRetraso, double valorLibro) {
+        // Caso base y límite de 30 días 
+        if (diasRetraso <= 0 || diasRetraso > 30) {
+            return 0;
         }
+        // 1% por día de retraso calculado recursivamente 
+        return (valorLibro * 0.01) + calcularMulta(diasRetraso - 1, valorLibro);
     }
 }
