@@ -5,6 +5,13 @@ public class Libro {
     private int anio;
     private boolean disponible;
 
+
+
+    public String getTitulo() {
+    return titulo;
+}
+
+
     public Libro(String titulo, String autor, String isbn, int anio) {
         this.titulo = titulo;
         this.autor = autor;
@@ -12,6 +19,7 @@ public class Libro {
         this.anio = anio;
         this.disponible = true;
     }
+
 
     // Getters
     public String getTitulo() { return titulo; }
@@ -23,5 +31,10 @@ public class Libro {
     // Setters
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
+
+    public void setDisponible(boolean b) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setDisponible'");
+
     }
 }

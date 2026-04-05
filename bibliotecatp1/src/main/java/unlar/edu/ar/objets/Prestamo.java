@@ -1,17 +1,17 @@
 package unlar.edu.ar.objets;
 
+
 import java.time.LocalDate;
 
-public class Prestamo {
+import java.time.LocalDate; // Corregida la mayúscula
 
-    // Atributos
+
+public class Prestamo {
     private Libro libro;
     private Estudiante estudiante;
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
 
-    // Constructor
-    
     public Prestamo(Libro libro, Estudiante estudiante, LocalDate fechaPrestamo) {
         this.libro = libro;
         this.estudiante = estudiante;
@@ -19,15 +19,14 @@ public class Prestamo {
         this.fechaDevolucion = null;
     }
 
-    // Getters
     public Libro getLibro() { return libro; }
     public Estudiante getEstudiante() { return estudiante; }
     public LocalDate getFechaPrestamo() { return fechaPrestamo; }
     public LocalDate getFechaDevolucion() { return fechaDevolucion; }
 
-    // Setters
     public void setFechaDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
+
     }
 
     @Override
@@ -40,8 +39,12 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "Prestamo: " + libro.getTitulo() + " a " + estudiante.getNombre();
+
     }
 
+    @Override
+    public String toString() { // String con S mayúscula
 
+        return "Prestamo: " + libro.getTitulo() + " a " + estudiante.getNombre();
+    }
 }

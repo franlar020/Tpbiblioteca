@@ -4,14 +4,28 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+
+
+
+
 import unlar.edu.ar.exception.*;
 
 public class Biblioteca {
+
 
     // Estructuras de datos corregidas
     private ArrayList<Libro> catalogoLibros; // Corregido: catalogoLibros
     private HashMap<String, Estudiante> registroEstudiantes; // Corregido: registroEstudiantes
     private HashSet<Prestamo> prestamosActivos; // Corregido: Debe ser <Prestamo>, no <String>
+
+
+    //definicion de estructuras de datos
+
+    private ArrayList<Libro> catologLibros;
+    private HashMap<String, Estudiante> registroEstudiates; // clave: legajo
+    private HashSet<Prestamo> prestamosActivos; // legajo de estudiantes con prestamos activos
+    private Object isbn;
+
 
     public Biblioteca() {
         this.catalogoLibros = new ArrayList<>();
@@ -51,8 +65,13 @@ public class Biblioteca {
 
         // 3. Buscar el libro por título y disponibilidad
         Libro libEncontrado = null;
+
         for (Libro libro : catalogoLibros) {
             if (libro.getTitulo().equalsIgnoreCase(tituloLibro) && libro.isDisponible()) {
+
+        for (Libro libro: catologLibros) {
+            if (libro.getIsbn().equals(isbn)) {
+
                 libEncontrado = libro;
                 break;
             }
@@ -89,6 +108,7 @@ public class Biblioteca {
         }
     }
 
+
     // Punto 2.5: Método recursivo para calcular multa (1% por día hasta 30 días)
     public double calcularMulta(int diasRetraso, double valorLibro) {
         if (diasRetraso <= 0) {
@@ -98,6 +118,33 @@ public class Biblioteca {
             return calcularMulta(30, valorLibro); // Límite de 30 días según tu lógica
         }
         // 1% del valor del libro + multa del día anterior
+
+    //Listar prestamos de un estudiante especifico
+    public void listarPrestamosEstudiante(String legajo) {
+        System.out.println("Buscando préstamos activos para el legajo: " + legajo);
+        boolean tienePrestamos = false;
+        
+        for (Prestamo p : prestamosActivos) {
+            // Usamos el getter para comparar el legajo
+            if (p.getEstudiante().getLegajo().equals(legajo)) {
+                System.out.println(p);
+                tienePrestamos = true;
+            }
+        }
+        
+        if (!tienePrestamos) {
+            System.out.println("El estudiante no tiene préstamos activos actualmente.");
+        }
+    }
+
+    // 2.5 Método recursivo para calcular multa 
+    public double calcularMulta(int diasRetraso, double valorLibro) {
+        // Caso base y límite de 30 días 
+        if (diasRetraso <= 0 || diasRetraso > 30) {
+            return 0;
+        }
+        // 1% por día de retraso calculado recursivamente 
+
         return (valorLibro * 0.01) + calcularMulta(diasRetraso - 1, valorLibro);
     }
 }
