@@ -4,28 +4,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-
-
-
-
 import unlar.edu.ar.exception.*;
 
 public class Biblioteca {
 
-
-    // Estructuras de datos corregidas
-    private ArrayList<Libro> catalogoLibros; // Corregido: catalogoLibros
-    private HashMap<String, Estudiante> registroEstudiantes; // Corregido: registroEstudiantes
-    private HashSet<Prestamo> prestamosActivos; // Corregido: Debe ser <Prestamo>, no <String>
-
-
-    //definicion de estructuras de datos
-
-    private ArrayList<Libro> catologLibros;
-    private HashMap<String, Estudiante> registroEstudiates; // clave: legajo
-    private HashSet<Prestamo> prestamosActivos; // legajo de estudiantes con prestamos activos
-    private Object isbn;
-
+    // 1. Estructuras de datos (Solo una declaración de cada una)
+    private ArrayList<Libro> catalogoLibros;
+    private HashMap<String, Estudiante> registroEstudiantes;
+    private HashSet<Prestamo> prestamosActivos;
 
     public Biblioteca() {
         this.catalogoLibros = new ArrayList<>();
@@ -33,6 +19,7 @@ public class Biblioteca {
         this.prestamosActivos = new HashSet<>();
     }
 
+    // 2. Métodos para agregar datos
     public void agregarLibro(Libro libro) {
         catalogoLibros.add(libro);
     }
@@ -41,37 +28,33 @@ public class Biblioteca {
         registroEstudiantes.put(estudiante.getLegajo(), estudiante);
     }
 
-    // Getters
+    // 3. Getters
     public ArrayList<Libro> getCatalogoLibros() { return catalogoLibros; }
     public HashMap<String, Estudiante> getRegistroEstudiantes() { return registroEstudiantes; }
     public HashSet<Prestamo> getPrestamosActivos() { return prestamosActivos; }
 
+    // 4. Registrar Préstamo
     public void registrarPrestamo(String legajo, String tituloLibro) throws LimitePrestamosExcedidoException, EstudianteNoEncontradoException, LibroNoDisponibleException {
         
-        // 1. Validar si el estudiante existe
+        // Validar si el estudiante existe
         Estudiante estudiante = registroEstudiantes.get(legajo);
         if (estudiante == null) {
             throw new EstudianteNoEncontradoException("El legajo " + legajo + " no está registrado.");
         }
 
-        // 2. Validar límite de 3 préstamos usando Stream
+        // Validar límite de 3 préstamos
         long contador = prestamosActivos.stream()
                 .filter(p -> p.getEstudiante().getLegajo().equals(legajo))
                 .count();
         
         if (contador >= 3) {
-            throw new LimitePrestamosExcedidoException("El estudiante " + legajo + " ya tiene 3 préstamos.");
+            throw new LimitePrestamosExcedidoException("El estudiante " + legajo + " ya tiene 3 préstamos activos.");
         }
 
-        // 3. Buscar el libro por título y disponibilidad
+        // Buscar el libro por título y disponibilidad
         Libro libEncontrado = null;
-
         for (Libro libro : catalogoLibros) {
             if (libro.getTitulo().equalsIgnoreCase(tituloLibro) && libro.isDisponible()) {
-
-        for (Libro libro: catologLibros) {
-            if (libro.getIsbn().equals(isbn)) {
-
                 libEncontrado = libro;
                 break;
             }
@@ -81,14 +64,15 @@ public class Biblioteca {
             throw new LibroNoDisponibleException("El libro '" + tituloLibro + "' no existe o no está disponible.");
         }
 
-        // 4. Registrar préstamo
+        // Registrar el préstamo
         Prestamo nuevoPrestamo = new Prestamo(libEncontrado, estudiante, LocalDate.now());
         prestamosActivos.add(nuevoPrestamo);
-        libEncontrado.setDisponible(false);
+        libEncontrado.setDisponible(false); // Cambiar estado del libro
 
         System.out.println("Préstamo registrado con éxito: " + libEncontrado.getTitulo());
     }
 
+    // 5. Registrar Devolución
     public void registrarDevolucion(String legajo, String tituloLibro) {
         Prestamo prestamoEncontrado = null;
         for (Prestamo prestamo : prestamosActivos) {
@@ -108,24 +92,12 @@ public class Biblioteca {
         }
     }
 
-
-    // Punto 2.5: Método recursivo para calcular multa (1% por día hasta 30 días)
-    public double calcularMulta(int diasRetraso, double valorLibro) {
-        if (diasRetraso <= 0) {
-            return 0;
-        }
-        if (diasRetraso > 30) {
-            return calcularMulta(30, valorLibro); // Límite de 30 días según tu lógica
-        }
-        // 1% del valor del libro + multa del día anterior
-
-    //Listar prestamos de un estudiante especifico
+    // 6. Listar préstamos
     public void listarPrestamosEstudiante(String legajo) {
         System.out.println("Buscando préstamos activos para el legajo: " + legajo);
         boolean tienePrestamos = false;
         
         for (Prestamo p : prestamosActivos) {
-            // Usamos el getter para comparar el legajo
             if (p.getEstudiante().getLegajo().equals(legajo)) {
                 System.out.println(p);
                 tienePrestamos = true;
@@ -137,14 +109,18 @@ public class Biblioteca {
         }
     }
 
-    // 2.5 Método recursivo para calcular multa 
+    // 7. Método RECURSIVO para calcular multa (Punto 2.5)
     public double calcularMulta(int diasRetraso, double valorLibro) {
-        // Caso base y límite de 30 días 
-        if (diasRetraso <= 0 || diasRetraso > 30) {
+        // Caso base: si no hay retraso
+        if (diasRetraso <= 0) {
             return 0;
         }
-        // 1% por día de retraso calculado recursivamente 
-
+        // Límite de 30 días: si se pasa de 30, calculamos como si fueran 30 (según tu lógica anterior)
+        if (diasRetraso > 30) {
+            return calcularMulta(30, valorLibro);
+        }
+        
+        // Caso recursivo: 1% del valor del libro + la multa del día anterior
         return (valorLibro * 0.01) + calcularMulta(diasRetraso - 1, valorLibro);
     }
 }
