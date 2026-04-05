@@ -1,9 +1,13 @@
 package unlar.edu.ar.objets;
 
 public class Libro {
-    String titulo, autor, isbn;
-    int anio;
-    boolean disponible;
+    private String titulo, autor, isbn;
+    private int anio;
+    private boolean disponible;
+
+    public String getTitulo() {
+    return titulo;
+}
 
     public Libro(String titulo, String autor, String isbn, int anio) {
         this.titulo = titulo;
