@@ -1,6 +1,6 @@
 package unlar.edu.ar.objets;
 
-import java.time.localDate;
+import java.time.LocalDate;
 
 public class Prestamo {
 
@@ -27,7 +27,7 @@ public class Prestamo {
 
     // Setters
     public void setFechaDevolucion(LocalDate fechaDevolucion) {
-    { this.fechaDevolucion = fechaDevolucion; } 
+        this.fechaDevolucion = fechaDevolucion;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Prestamo {
     }
 
     @Override
-    public string toString() {
+    public String toString() {
         return "Prestamo: " + libro.getTitulo() + " a " + estudiante.getNombre();
     }
 

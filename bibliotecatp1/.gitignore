@@ -1,0 +1,18 @@
+# Carpetas de compilación (Binarios)
+target/
+bin/
+out/
+
+# Archivos de configuración de VS Code
+.vscode/
+*.code-workspace
+
+# Archivos de configuración de Eclipse / Java Projects
+.settings/
+.classpath
+.project
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+*.log
