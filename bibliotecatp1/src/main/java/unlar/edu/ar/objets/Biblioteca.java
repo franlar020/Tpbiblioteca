@@ -1,5 +1,6 @@
 package unlar.edu.ar.objets;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -74,6 +75,8 @@ public class Biblioteca {
 
     }
 
+    // metodo para registrar la devolucion de un libro
+
     public void registrarDevolucion(String legajo, String tituloLibro) {
         Prestamo prestamoEncontrado = null;
         for (Prestamo prestamo : prestamosActivos) {
@@ -90,6 +93,7 @@ public class Biblioteca {
         }
     }
 
+    // metodo para buscar un libro por titulo
     public void buscarLibro(String titulo) {
         for (Libro libro : catologLibros) {
             if (libro.getTitulo().equalsIgnoreCase(titulo)) {
@@ -98,5 +102,22 @@ public class Biblioteca {
             }
         }
         System.out.println("Libro con título '" + titulo + "' no encontrado.");
+    }
+
+    //Listar prestamos de un estudiante especifico
+    public void listarPrestamosEstudiante(String legajo) {
+        System.out.println("Buscando préstamos activos para el legajo: " + legajo);
+    boolean tienePrestamos = false;
+    
+    for (Prestamo p : prestamosActivos) {
+        // Usamos el getter para comparar el legajo
+        if (p.getEstudiante().getLegajo().equals(legajo)) {
+            System.out.println(p);
+            tienePrestamos = true;
+        }
+    }
+    
+    if (!tienePrestamos) {
+        System.out.println("El estudiante no tiene préstamos activos actualmente.");
     }
 }
