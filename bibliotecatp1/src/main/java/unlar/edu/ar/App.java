@@ -25,5 +25,6 @@ public class App
         System.out.println("Multa 1 (0 dias): $" + multa1);
         System.out.println("------------------------------------");
         System.out.println("Multa 2 (15 dias): $" + multa2);
+        System.out.println("isma gay");
     }
 }
