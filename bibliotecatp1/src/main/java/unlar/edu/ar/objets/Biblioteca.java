@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import unlar.edu.ar.exception.*;
+import lombok.Getter;
+
+
 
 public class Biblioteca {
 
     // 1. Estructuras de datos (Solo una declaración de cada una)
-    private ArrayList<Libro> catalogoLibros;
-    private HashMap<String, Estudiante> registroEstudiantes;
-    private HashSet<Prestamo> prestamosActivos;
+    @Getter private ArrayList<Libro> catalogoLibros;
+    @Getter private HashMap<String, Estudiante> registroEstudiantes;
+    @Getter private HashSet<Prestamo> prestamosActivos;
 
     public Biblioteca() {
         this.catalogoLibros = new ArrayList<>();
@@ -27,11 +30,6 @@ public class Biblioteca {
     public void registrarEstudiante(Estudiante estudiante) {
         registroEstudiantes.put(estudiante.getLegajo(), estudiante);
     }
-
-    // 3. Getters
-    public ArrayList<Libro> getCatalogoLibros() { return catalogoLibros; }
-    public HashMap<String, Estudiante> getRegistroEstudiantes() { return registroEstudiantes; }
-    public HashSet<Prestamo> getPrestamosActivos() { return prestamosActivos; }
 
     // 4. Registrar Préstamo
     public void registrarPrestamo(String legajo, String tituloLibro) throws LimitePrestamosExcedidoException, EstudianteNoEncontradoException, LibroNoDisponibleException {
@@ -65,7 +63,7 @@ public class Biblioteca {
         }
 
         // Registrar el préstamo
-        Prestamo nuevoPrestamo = new Prestamo(libEncontrado, estudiante, LocalDate.now());
+        Prestamo nuevoPrestamo = new Prestamo(libEncontrado, estudiante, LocalDate.now(), null);
         prestamosActivos.add(nuevoPrestamo);
         libEncontrado.setDisponible(false); // Cambiar estado del libro
 
