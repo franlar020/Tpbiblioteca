@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class Libro {
-    // Atributos privados (Encapsulamiento)
+
     private String titulo;
     private String autor;
     private String isbn;

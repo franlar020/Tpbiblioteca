@@ -11,7 +11,7 @@ import lombok.Getter;
 
 public class Biblioteca {
 
-    // 1. Estructuras de datos (Solo una declaración de cada una)
+    // 1. Estructuras de datos
     @Getter private ArrayList<Libro> catalogoLibros;
     @Getter private HashMap<String, Estudiante> registroEstudiantes;
     @Getter private HashSet<Prestamo> prestamosActivos;
@@ -107,13 +107,13 @@ public class Biblioteca {
         }
     }
 
-    // 7. Método RECURSIVO para calcular multa (Punto 2.5)
+    // 7. calcular multa
     public double calcularMulta(int diasRetraso, double valorLibro) {
         // Caso base: si no hay retraso
         if (diasRetraso <= 0) {
             return 0;
         }
-        // Límite de 30 días: si se pasa de 30, calculamos como si fueran 30 (según tu lógica anterior)
+
         if (diasRetraso > 30) {
             return calcularMulta(30, valorLibro);
         }
