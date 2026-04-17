@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data // Genera getters, setters, toString, equals y hashCode automáticamente
+@Data // Genera getters, setters, toString, equals y hashCode
 @AllArgsConstructor // Genera un constructor con todos los campos
 @NoArgsConstructor // Genera un constructor vacio
 
